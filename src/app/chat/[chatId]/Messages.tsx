@@ -34,7 +34,7 @@ export default function Messages({
     pusherClient.bind("incoming-message", messageHandler);
 
     return () => {
-      pusherClient.unsubscribe(toPusherKey(toPusherKey(`chat:${chatId}`)));
+      pusherClient.unsubscribe(toPusherKey(`chat:${chatId}`));
 
       pusherClient.unbind("incoming-message", messageHandler);
     };
