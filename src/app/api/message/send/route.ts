@@ -5,6 +5,7 @@ import { fetchRedis } from "@/lib/redis";
 import { toPusherKey } from "@/lib/utils";
 import { nanoid } from "nanoid";
 import { User, getServerSession } from "next-auth";
+import { Response } from "pusher";
 
 export async function POST(req: Request) {
   try {
@@ -13,6 +14,10 @@ export async function POST(req: Request) {
 
     if (!text || text.length === 0) {
       return new Response("Message to short!", { status: 400 });
+    }
+
+    if (text.length > 2048) {
+      return new Response("Message to long!", { status: 400 });
     }
 
     if (!session)

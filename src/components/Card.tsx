@@ -3,6 +3,7 @@
 import { VscError as RejectIcon } from "react-icons/vsc";
 import ApproveFriend from "./ApproveFriend";
 import { useIncrementContext } from "@/context/PersonIndexContext";
+import Image from "next/image";
 
 interface Props {
   cardIndex: number;
@@ -21,8 +22,8 @@ export default function Card({ user, cardIndex }: Props) {
     <section className="w-screen h-full gap-24 mt-24 relative text-60 flex flex-col items-center justify-end">
       <div className="flex items-center h-full">
         <div className="h-fit relative">
-          <img
-            src={bgImage}
+          <Image
+            src={bgImage || ""}
             alt="profile"
             className="w-[90vw] max-h-full"
           />

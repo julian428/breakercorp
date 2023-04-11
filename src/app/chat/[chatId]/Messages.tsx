@@ -38,7 +38,7 @@ export default function Messages({
 
       pusherClient.unbind("incoming-message", messageHandler);
     };
-  }, []);
+  }, [chatId]);
 
   const scrollDownRef = useRef<HTMLDivElement | null>(null);
 
