@@ -48,7 +48,7 @@ const authOptions: NextAuthOptions = {
       return session;
     },
     redirect() {
-      return "/create-profile";
+      return "/";
     },
   },
 };
