@@ -4,8 +4,7 @@ import { pusherServer } from "@/lib/pusher";
 import { fetchRedis } from "@/lib/redis";
 import { toPusherKey } from "@/lib/utils";
 import { nanoid } from "nanoid";
-import { User, getServerSession } from "next-auth";
-import { Response } from "pusher";
+import { getServerSession } from "next-auth";
 
 export async function POST(req: Request) {
   try {
@@ -43,11 +42,11 @@ export async function POST(req: Request) {
       return new Response("Unauthorized `not a friend`", { status: 401 });
     }
 
-    const rawSender = (await fetchRedis(
-      "get",
-      `user:${session.user.id}`
-    )) as string;
-    const sender = JSON.parse(rawSender) as User;
+    // const rawSender = (await fetchRedis(
+    //   "get",
+    //   `user:${session.user.id}`
+    // )) as string;
+    // const sender = JSON.parse(rawSender) as User;
 
     const timestamp = Date.now();
 
@@ -74,11 +73,11 @@ export async function POST(req: Request) {
       member: JSON.stringify(message),
     });
 
-    return new Response("ok");
+    return new Response("ok", { status: 200 });
   } catch (error) {
     if (error instanceof Error) {
       return new Response(error.message, { status: 500 });
     }
-    return new Response("Internal server error");
+    return new Response("Internal server error", { status: 500 });
   }
 }
