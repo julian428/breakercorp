@@ -21,11 +21,11 @@ export default function RootLayout({
             href="/"
             className="cursor-pointer"
           >
-            <div>logo</div>
+            <div>Br3aker corp</div>
           </Link>
           <Link
             href="/chat"
-            className="text-blue-400 text-4xl"
+            className="text-30 text-4xl"
           >
             <ChatIcon />
           </Link>

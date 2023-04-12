@@ -40,36 +40,43 @@ export default async function ChatPage({ params }: Props) {
   if (user.id !== userId1 && user.id !== userId2) notFound();
 
   const chatPartnerId = user.id === userId1 ? userId2 : userId1;
-  const chatPartner = (await db.get(`user:${chatPartnerId}`)) as User;
+  const chatPartner = (await db.get(
+    `user:${chatPartnerId}:profile`
+  )) as UserProfile;
+  const chatUser = (await db.get(
+    `user:${session.user.id}:profile`
+  )) as UserProfile;
   const initialMessages = await getChatMessages(chatId);
 
   return (
     <div className="flex-1 justify-between flex flex-col h-full max-h-full w-full">
-      <div className="flex justify-between py-3 border border-b-2 border-gray-200 px-2">
+      <div className="flex justify-between py-3 border border-b-2 border-disabled px-2">
         <div className="relative">
           <div className="relative w-12 h-12">
             <Image
               fill
               referrerPolicy="no-referrer"
               src={chatPartner.image || ""}
-              alt={`${chatPartner.name} profile picture`}
+              alt={`${chatPartner.username} profile picture`}
               className="rounded-full"
             />
           </div>
         </div>
-        <div className="flex flex-col leading-tight">
+        <div className="flex flex-col leading-tight px-4">
           <div className="text-xl flex items-center">
-            <span className="text-gray-700 mr-3 font-semibold">
-              {chatPartner.name}
+            <span className="text-black mr-3 font-semibold">
+              {chatPartner.username}
             </span>
           </div>
-          <span className="text-sm text-gray-600">{chatPartner.email}</span>
+          <span className="text-sm text-disabled break-all">
+            {chatPartner.description}
+          </span>
         </div>
       </div>
       <Messages
         initialMessages={initialMessages}
-        sessionId={session.user.id}
-        sessionImage={session.user.image || ""}
+        sessionId={chatUser.id}
+        sessionImage={chatUser.image || ""}
         chatPartner={chatPartner}
         chatId={chatId}
       />

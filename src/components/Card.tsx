@@ -7,11 +7,7 @@ import Image from "next/image";
 
 interface Props {
   cardIndex: number;
-  user:
-    | (User & {
-        id: string;
-      })
-    | undefined;
+  user: UserProfile;
 }
 
 export default function Card({ user, cardIndex }: Props) {
@@ -21,21 +17,25 @@ export default function Card({ user, cardIndex }: Props) {
   return (
     <section className="w-screen h-full gap-24 mt-24 relative text-60 flex flex-col items-center justify-end">
       <div className="flex items-center h-full">
-        <div className="h-fit relative">
+        <div className="h-fit relative flex flex-col">
           <Image
             src={bgImage || ""}
             alt="profile"
-            className="w-[90vw] max-h-full"
+            width={400}
+            height={400}
           />
-          <article className="px-4 py-1 text-60 absolute bottom-0 bg-black w-full">
-            <h2 className="text-2xl">{user?.name}</h2>
-            <p>I hate r6 siege! I would love to hate it with you ;)</p>
+          <article className="px-4 py-1 text-60 absolute bottom-0 bg-black w-full opacity-75">
+            <h2 className="text-2xl">{user.username}</h2>
+            <p className="break-all">{user.description}</p>
           </article>
         </div>
       </div>
       <nav className="flex gap-48 justify-center items-center w-full p-4">
         <button
-          onClick={incrementIndex}
+          onClick={() => {
+            incrementIndex();
+            window.location.reload();
+          }}
           className="text-red-400 text-6xl"
         >
           <RejectIcon />

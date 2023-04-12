@@ -6,7 +6,7 @@ import { fetchRedis } from "@/lib/redis";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-async function getNonFriends(userId: string) {
+async function getNonFriends(userId: string): Promise<UserProfile[] | null> {
   const allUserData = await db.keys("user:*");
   const usersId: string[] = [];
   for (const user of allUserData) {
@@ -20,16 +20,10 @@ async function getNonFriends(userId: string) {
         userId
       )) || (await fetchRedis("sismember", `${user}:friends`, userId));
     if (isAlreadyFriend) continue;
-    usersId.push(user);
+    usersId.push(user + ":profile");
   }
   if (!usersId || usersId.length === 0) return null;
-  const users = (await db.mget(...usersId)) as
-    | (
-        | (User & {
-            id: string;
-          })
-        | undefined
-      )[];
+  const users = (await db.mget(...usersId)) as UserProfile[];
   return users;
 }
 
@@ -45,7 +39,7 @@ export default async function Home() {
         users.map((user, index) => (
           <Card
             user={user}
-            key={user?.id || Math.random()}
+            key={user.username || Math.random()}
             cardIndex={index}
           />
         ))

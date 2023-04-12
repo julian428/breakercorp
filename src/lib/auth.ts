@@ -15,23 +15,6 @@ function getGoogleCredentials() {
   return { clientId, clientSecret };
 }
 
-// function getSupabaseCredentials() {
-//   const url = process.env.SUPABASE_URL;
-//   const secret = process.env.SUPABASE_SERVICE_ROLE_KEY;
-//   if (!url || url.length === 0) {
-//     throw new Error("No supabase SUPABASE_URL has been provided");
-//   }
-//   if (!secret || secret.length === 0) {
-//     throw new Error("No supabase SUPABASE_SERVICE_ROLE_KEY has been provided");
-//   }
-//   return { url, secret };
-// }
-
-/**
- * SupabaseAdapter({...getSupabaseCredentials()})
- * UpstashRedisAdapter(db)
- */
-
 const authOptions: NextAuthOptions = {
   adapter: UpstashRedisAdapter(db),
   session: {
@@ -65,7 +48,7 @@ const authOptions: NextAuthOptions = {
       return session;
     },
     redirect() {
-      return "/";
+      return "/create-profile";
     },
   },
 };

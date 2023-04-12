@@ -5,6 +5,14 @@ interface User {
   id: string;
 }
 
+interface UserProfile {
+  username: string;
+  description: string;
+  image: string;
+  email: string;
+  id: string;
+}
+
 interface Chat {
   id: string;
   messages: Message[];

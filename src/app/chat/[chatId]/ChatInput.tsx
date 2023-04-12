@@ -7,7 +7,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import { AiOutlineLoading as LoadingIcon } from "react-icons/ai";
 
 interface Props {
-  chatPartner: User;
+  chatPartner: UserProfile;
   chatId: string;
 }
 
@@ -32,21 +32,21 @@ export default function ChatInput({ chatPartner, chatId }: Props) {
 
   return (
     <div className="border-t px-4 pt-4 mb-2 sm:mb-0">
-      <div className="relative flex-1 overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within::ring-2 focus-within:ring-indigo-600 h-fit">
+      <div className="relative flex-1 overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within::ring-2 focus-within:ring-30 h-fit">
         <TextareaAutosize
           ref={textareaRef}
           rows={1}
           disabled={isLoading}
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder={`Message @${chatPartner.name}`}
+          placeholder={`Message @${chatPartner.username}`}
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
               e.preventDefault();
               sendMessage();
             }
           }}
-          className="block w-full resize-none border-0 bg-transparent px-2 py-1 text-gray-900 placeholder:text-gray-400 ring-0 outline-none"
+          className="block w-full resize-none border-0 bg-transparent px-2 py-1 text-black placeholder:text-disabled ring-0 outline-none"
         />
         <div
           onClick={() => textareaRef.current?.focus()}

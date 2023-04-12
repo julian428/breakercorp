@@ -12,7 +12,7 @@ interface Props {
   sessionId: string;
   sessionImage: string;
   chatId: string;
-  chatPartner: User;
+  chatPartner: UserProfile;
 }
 
 export default function Messages({
@@ -79,8 +79,8 @@ export default function Messages({
                   className={cn(
                     "px-4 py-2 max-w-sm break-words rounded-lg inline-block",
                     {
-                      "bg-indigo-600 text-white": isCurrentUser,
-                      "bg-gray-200 text-gray-900": !isCurrentUser,
+                      "bg-30 text-60": isCurrentUser,
+                      "bg-disabled bg-opacity-50 text-black": !isCurrentUser,
                       "rounded-br-none":
                         !hasNextMessageFromSameUser && isCurrentUser,
                       "rounded-bl-none":
@@ -89,7 +89,7 @@ export default function Messages({
                   )}
                 >
                   {message.text}{" "}
-                  <span className="ml-2 text-xs text-gray-400">
+                  <span className="ml-2 text-xs text-black text-opacity-50">
                     {formatTimeStamp(message.timestamp)}
                   </span>
                 </span>
